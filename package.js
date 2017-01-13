@@ -11,6 +11,8 @@ Package.onUse(function _(api) {
 
     api.use('ecmascript');
 
+    api.use('socialize:linkable-model@1.0.0');
+
     api.mainModule('server/server.js', 'server');
     api.mainModule('common/common.js');
 });
