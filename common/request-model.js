@@ -2,7 +2,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { _ } from 'meteor/underscore';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import SimpleSchema from 'simpl-schema';
 import { LinkableModel, LinkParent } from 'socialize:linkable-model';
 
 /* eslint-disable import/no-unresolved */
