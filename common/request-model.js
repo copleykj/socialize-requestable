@@ -3,7 +3,8 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { _ } from 'meteor/underscore';
 import SimpleSchema from 'simpl-schema';
-import { LinkableModel, LinkParent } from 'socialize:linkable-model';
+import { BaseModel } from 'meteor/socialize:base-model';
+import { LinkableModel, LinkParent } from 'meteor/socialize:linkable-model';
 
 /* eslint-disable import/no-unresolved */
 
@@ -16,20 +17,20 @@ let requestTypes = [];
  * @class Request
  * @param {Object} document An object representing a request, usually a Mongo document
  */
-export class Request extends LinkableModel {
+export class Request extends LinkableModel(BaseModel) {
     /**
      * onAccepted - Register a function to run when the request is accepted
      *
      * @static
-     * @param  {LinkParent} model       The model for which the function should run
+     * @param  {LinkParent} Model       The model for which the function should run
      * @param  {Function} acceptedHook  The function to run when the request is accepted
      * @throws {Meteor.error}
      */
 
-    static onAccepted(model, acceptedHook) {
-        if (model instanceof LinkParent) {
+    static onAccepted(Model, acceptedHook) {
+        if (new Model() instanceof LinkParent) {
             if (_.isFunction(acceptedHook)) {
-                const hookName = model.prototype.getCollectionName();
+                const hookName = Model.prototype.getCollectionName();
 
                 if (!acceptHooks[hookName]) {
                     acceptHooks[hookName] = [];
