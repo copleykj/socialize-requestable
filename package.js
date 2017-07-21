@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+/* global Package */
 Package.describe({
     name: 'socialize:requestable',
     version: '1.0.0',
