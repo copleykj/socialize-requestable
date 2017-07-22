@@ -124,7 +124,7 @@ RequestsCollection.attachSchema(new SimpleSchema({
     },
     type: {
         type: String,
-        allowedValues: requestTypes,
+        allowedValues: () => requestTypes,
     },
     date: {
         type: Date,
