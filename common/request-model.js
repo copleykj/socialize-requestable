@@ -63,7 +63,7 @@ export class Request extends LinkableModel(BaseModel) {
     }
 
     /**
-     * Accept the friend request
+     * Accept the request
      * @method approve
      */
     accept() {
@@ -74,7 +74,7 @@ export class Request extends LinkableModel(BaseModel) {
     }
 
     /**
-     * Deny the friend request
+     * Deny the request
      * @method deny
      */
     deny() {
@@ -82,7 +82,7 @@ export class Request extends LinkableModel(BaseModel) {
     }
 
     /**
-     * Ignore the friend request so that it can be accpted or denied later
+     * Ignore the request so that it can be accpted or denied later
      * @method ignore
      */
     ignore() {
@@ -90,7 +90,7 @@ export class Request extends LinkableModel(BaseModel) {
     }
 
     /**
-     * Cancel the friend request
+     * Cancel the request
      * @method cancel
      */
     cancel() {
