@@ -70,7 +70,6 @@ export class Request extends LinkableModel(BaseModel) {
         _.each(acceptHooks[this.objectType], (hook) => {
             hook.call(this);
         });
-        this.remove();
     }
 
     /**
