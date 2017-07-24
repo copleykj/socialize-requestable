@@ -8,7 +8,7 @@ import { LinkableModel, LinkParent } from 'meteor/socialize:linkable-model';
 
 /* eslint-disable import/no-unresolved */
 
-export const RequestsCollection = new Mongo.Collection('requests');
+export const RequestsCollection = new Mongo.Collection('socialize:requests');
 
 const acceptHooks = {};
 let requestTypes = [];
