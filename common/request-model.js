@@ -115,7 +115,7 @@ RequestsCollection.attachSchema(new SimpleSchema({
         regEx: SimpleSchema.RegEx.Id,
         autoValue() {
             if (this.isInsert) {
-                return Meteor.userId();
+                return this.userId;
             }
             return undefined;
         },
