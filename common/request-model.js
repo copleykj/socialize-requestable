@@ -64,7 +64,6 @@ export class Request extends LinkableModel(BaseModel) {
 
     /**
      * Accept the request
-     * @method approve
      */
     accept() {
         _.each(acceptHooks[this.objectType], (hook) => {
@@ -74,7 +73,6 @@ export class Request extends LinkableModel(BaseModel) {
 
     /**
      * Deny the request
-     * @method deny
      */
     deny() {
         this.update({ $set: { denied: new Date() } });
@@ -82,7 +80,6 @@ export class Request extends LinkableModel(BaseModel) {
 
     /**
      * Ignore the request so that it can be accpted or denied later
-     * @method ignore
      */
     ignore() {
         this.update({ $set: { ignored: new Date() } });
@@ -90,7 +87,6 @@ export class Request extends LinkableModel(BaseModel) {
 
     /**
      * Cancel the request
-     * @method cancel
      */
     cancel() {
         this.remove();
