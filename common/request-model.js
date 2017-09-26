@@ -74,22 +74,22 @@ export class Request extends LinkableModel(BaseModel) {
     /**
      * Deny the request
      */
-    deny() {
-        this.update({ $set: { denied: new Date() } });
+    deny(options = {}) {
+        this.update({ $set: { denied: new Date() } }, options);
     }
 
     /**
      * Ignore the request so that it can be accpted or denied later
      */
-    ignore() {
-        this.update({ $set: { ignored: new Date() } });
+    ignore(options = {}) {
+        this.update({ $set: { ignored: new Date() } }, options);
     }
 
     /**
      * Cancel the request
      */
-    cancel() {
-        this.remove();
+    cancel(options = {}) {
+        this.remove(options);
     }
 
     /**
