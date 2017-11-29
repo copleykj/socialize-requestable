@@ -121,7 +121,7 @@ RequestsCollection.attachSchema(new SimpleSchema({
         type: String,
         allowedValues: () => requestTypes,
     },
-    date: {
+    createAt: {
         type: Date,
         autoValue() {
             if (this.isInsert) {
@@ -129,6 +129,7 @@ RequestsCollection.attachSchema(new SimpleSchema({
             }
             return undefined;
         },
+        index: -1,
         denyUpdate: true,
     },
     denied: {
