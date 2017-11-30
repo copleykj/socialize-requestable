@@ -12,6 +12,34 @@ import { ServerTime } from 'meteor/socialize:server-time';
 
 export const RequestsCollection = new Mongo.Collection('socialize:requests');
 
+if (RequestsCollection.configureRedisOplog) {
+    RequestsCollection.configureRedisOplog({
+        mutation(options, { selector, doc }) {
+            const namespaces = [];
+            if (doc) {
+                namespaces.push(doc.linkedObjectId, doc.requesterId);
+            } else if (selector && selector._id) {
+                const request = RequestsCollection.findOne({ _id: selector._id }, { fields: { linkedObjectId: 1, requesterId: 1 } });
+                if (request) {
+                    namespaces.push(request.linkedObjectId, request.requesterId);
+                }
+            }
+
+            Object.assign(options, {
+                namespaces,
+            });
+        },
+        cursor(options, selector) {
+            const selectorId = selector.linkedObjectId || selector.requesterId;
+            if (selectorId) {
+                Object.assign(options, {
+                    namespace: selectorId,
+                });
+            }
+        },
+    });
+}
+
 const acceptHooks = {};
 let requestTypes = [];
 /**
