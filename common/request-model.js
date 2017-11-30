@@ -5,6 +5,8 @@ import { _ } from 'meteor/underscore';
 import SimpleSchema from 'simpl-schema';
 import { BaseModel } from 'meteor/socialize:base-model';
 import { LinkableModel, LinkParent } from 'meteor/socialize:linkable-model';
+import { ServerTime } from 'meteor/socialize:server-time';
+
 
 /* eslint-disable import/no-unresolved */
 
@@ -75,14 +77,14 @@ export class Request extends LinkableModel(BaseModel) {
      * Deny the request
      */
     deny() {
-        this.update({ $set: { denied: new Date() } });
+        this.update({ $set: { denied: ServerTime.date() } });
     }
 
     /**
      * Ignore the request so that it can be accpted or denied later
      */
     ignore() {
-        this.update({ $set: { ignored: new Date() } });
+        this.update({ $set: { ignored: ServerTime.date() } });
     }
 
     /**
@@ -125,7 +127,7 @@ RequestsCollection.attachSchema(new SimpleSchema({
         type: Date,
         autoValue() {
             if (this.isInsert) {
-                return new Date();
+                return ServerTime.date();
             }
             return undefined;
         },
