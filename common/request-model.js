@@ -89,7 +89,7 @@ export class Request extends LinkableModel(BaseModel) {
      * @returns {User} The user who made the request
      */
     requester() {
-        return Meteor.users.findOne(this.requesterId);
+        return Meteor.users.findOne({ _id: this.requesterId });
     }
 
     /**
