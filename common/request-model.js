@@ -1,7 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { _ } from 'meteor/underscore';
 import SimpleSchema from 'simpl-schema';
 import { BaseModel } from 'meteor/socialize:base-model';
 import { LinkableModel, LinkParent } from 'meteor/socialize:linkable-model';
@@ -59,7 +58,7 @@ export class Request extends LinkableModel(BaseModel) {
 
     static onAccepted(Model, acceptedHook) {
         if (new Model() instanceof LinkParent) {
-            if (_.isFunction(acceptedHook)) {
+            if (typeof acceptedHook == 'function') {
                 const hookName = Model.prototype.getCollectionName();
 
                 if (!acceptHooks[hookName]) {
@@ -96,7 +95,7 @@ export class Request extends LinkableModel(BaseModel) {
      * Accept the request
      */
     accept() {
-        _.each(acceptHooks[this.objectType], (hook) => {
+        acceptHooks[this.objectType].forEach(hook => {
             hook.call(this);
         });
     }
@@ -109,7 +108,7 @@ export class Request extends LinkableModel(BaseModel) {
     }
 
     /**
-     * Ignore the request so that it can be accpted or denied later
+     * Ignore the request so that it can be accepted or denied later
      */
     ignore() {
         this.update({ $set: { ignored: ServerTime.date() } });
