@@ -43,13 +43,14 @@ class Group extends LinkParent {
     requestAccess() {
         new Request({
             ...this.getLinkObject(),
-            type: 'group'}
-        ).save()
-    },
+            type: 'group'
+        }).save();
+    }
+    
     requests() {
         return RequestsCollection.find({
             ...this.getLinkObject(),
-            type: 'friend',
+            type: 'group',
             denied: { $exists: false },
             ignored: { $exists: false }
         });
