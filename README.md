@@ -32,24 +32,18 @@ const GroupsCollection = new Mongo.Collection('groups');
 
 Request.registerRequestType('group');
 
-Request.onAccepted(function() {
-    //`this` is the instance of the request that is being accepted
-    if(this.type === 'group'){
-        new GroupMember({ userId: this.requesterId }).save();
-    }
-})
-
 class Group extends LinkParent {
     requestAccess() {
         new Request({
             ...this.getLinkObject(),
-            type: 'group'}
-        ).save()
-    },
+            type: 'group'
+        }).save();
+    }
+    
     requests() {
         return RequestsCollection.find({
             ...this.getLinkObject(),
-            type: 'friend',
+            type: 'group',
             denied: { $exists: false },
             ignored: { $exists: false }
         });
@@ -73,6 +67,13 @@ Group.attachSchema(new SimpleSchema({
         },
     }
 }));
+
+Request.onAccepted(Group, function() {
+    //`this` is the instance of the request that is being accepted
+    if(this.type === 'group'){
+        new GroupMember({ userId: this.requesterId }).save();
+    }
+});
 ```
 
 For a more in depth explanation of how to use this package see [API.md](API.md)

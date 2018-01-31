@@ -32,7 +32,7 @@ request.deny(); //deny the request
 **cancel** - Cancel a request.
 
 ```javascript
-request.cancel(); //cancel the friend request
+request.cancel(); //cancel the request
 ```
 
 **wasRespondedTo** - Check to see if the request has been responded to (denied or ignored).
