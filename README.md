@@ -32,13 +32,6 @@ const GroupsCollection = new Mongo.Collection('groups');
 
 Request.registerRequestType('group');
 
-Request.onAccepted(function() {
-    //`this` is the instance of the request that is being accepted
-    if(this.type === 'group'){
-        new GroupMember({ userId: this.requesterId }).save();
-    }
-})
-
 class Group extends LinkParent {
     requestAccess() {
         new Request({
@@ -74,6 +67,13 @@ Group.attachSchema(new SimpleSchema({
         },
     }
 }));
+
+Request.onAccepted(Group, function() {
+    //`this` is the instance of the request that is being accepted
+    if(this.type === 'group'){
+        new GroupMember({ userId: this.requesterId }).save();
+    }
+});
 ```
 
 For a more in depth explanation of how to use this package see [API.md](API.md)
