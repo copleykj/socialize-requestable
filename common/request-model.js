@@ -92,6 +92,17 @@ export class Request extends LinkableModel(BaseModel) {
     }
 
     /**
+     * Get the User instance for the user who is invited if exists
+     * @returns {User} The user who is invited
+     */
+    invited() {
+        if (this.invited) {
+            return Meteor.users.findOne({ _id: this.invited });
+        }
+        return null;
+    }
+
+    /**
      * Accept the request
      */
     accept() {
@@ -144,7 +155,15 @@ RequestsCollection.attachSchema(new SimpleSchema({
             }
             return undefined;
         },
+        index: 1,
         denyUpdate: true,
+    },
+    invitedId: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id,
+        index: 1,
+        denyUpdate: true,
+        optional: true
     },
     type: {
         type: String,
@@ -169,6 +188,11 @@ RequestsCollection.attachSchema(new SimpleSchema({
         type: Date,
         optional: true,
     },
+    data: {
+        type: Object,
+        blackbox: true,
+        optional: true
+    }
 }));
 
 // add the LinkableSchema to the request class
