@@ -58,7 +58,7 @@ export class Request extends LinkableModel(BaseModel) {
 
     static onAccepted(Model, acceptedHook) {
         if (new Model() instanceof LinkParent) {
-            if (typeof acceptedHook == 'function') {
+            if (typeof acceptedHook === 'function') {
                 const hookName = Model.prototype.getCollectionName();
 
                 if (!acceptHooks[hookName]) {
@@ -106,7 +106,7 @@ export class Request extends LinkableModel(BaseModel) {
      * Accept the request
      */
     accept() {
-        acceptHooks[this.objectType].forEach(hook => {
+        acceptHooks[this.objectType].forEach((hook) => {
             hook.call(this);
         });
     }
