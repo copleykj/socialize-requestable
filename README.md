@@ -39,13 +39,13 @@ class Group extends LinkParent {
             type: 'group'
         }).save();
     }
-    
+
     requests() {
         return RequestsCollection.find({
             ...this.getLinkObject(),
             type: 'group',
-            denied: { $exists: false },
-            ignored: { $exists: false }
+            deniedAt: { $exists: false },
+            ignoredAt: { $exists: false }
         });
     }
 }
