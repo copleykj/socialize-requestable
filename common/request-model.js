@@ -115,14 +115,14 @@ export class Request extends LinkableModel(BaseModel) {
      * Deny the request
      */
     deny() {
-        this.update({ $set: { denied: ServerTime.date() } });
+        this.update({ $set: { deniedAt: ServerTime.date() } });
     }
 
     /**
-     * Ignore the request so that it can be accepted or denied later
+     * Ignore the request so that it can be accepted or deniedAt later
      */
     ignore() {
-        this.update({ $set: { ignored: ServerTime.date() } });
+        this.update({ $set: { ignoredAt: ServerTime.date() } });
     }
 
     /**
@@ -137,7 +137,7 @@ export class Request extends LinkableModel(BaseModel) {
      * @returns {Boolean} Whether the request has been responded to
      */
     wasRespondedTo() {
-        return !!this.denied || !!this.ignored;
+        return !!this.deniedAt || !!this.ignoredAt;
     }
 }
 
@@ -180,11 +180,11 @@ RequestsCollection.attachSchema(new SimpleSchema({
         index: -1,
         denyUpdate: true,
     },
-    denied: {
+    deniedAt: {
         type: Date,
         optional: true,
     },
-    ignored: {
+    ignoredAt: {
         type: Date,
         optional: true,
     },

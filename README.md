@@ -39,13 +39,13 @@ class Group extends LinkParent {
             type: 'group'
         }).save();
     }
-    
+
     requests() {
         return RequestsCollection.find({
             ...this.getLinkObject(),
             type: 'group',
-            denied: { $exists: false },
-            ignored: { $exists: false }
+            deniedAt: { $exists: false },
+            ignoredAt: { $exists: false }
         });
     }
 }
@@ -75,6 +75,10 @@ Request.onAccepted(Group, function() {
     }
 });
 ```
+
+> **Note**
+>
+> This package does not provide any allow/deny rules for requests. You will need to write your own, making sure to check the `type` field to ensure its the type of request you are expecting. Other request types should then be ignored as other packages that use this package will handle their own.
 
 For a more in depth explanation of how to use this package see [API.md](API.md)
 
