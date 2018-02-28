@@ -29,7 +29,8 @@ if (RequestsCollection.configureRedisOplog) {
             });
         },
         cursor(options, selector) {
-            const selectorId = selector.linkedObjectId || selector.requesterId;
+            const newSelector = (selector.$or && selector.$or[0]) || selector;
+            const selectorId = newSelector.linkedObjectId || newSelector.requesterId;
             if (selectorId) {
                 Object.assign(options, {
                     namespace: selectorId,

@@ -42,7 +42,7 @@ retry@1.1.0
 routepolicy@1.0.12
 socialize:base-model@1.0.3
 socialize:linkable-model@1.0.0
-socialize:requestable@1.0.0
+socialize:requestable@1.0.1
 socialize:server-time@0.1.2
 socket-stream-client@0.1.0
 tmeasday:check-npm-versions@0.3.2

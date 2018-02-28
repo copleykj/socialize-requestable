@@ -1,7 +1,7 @@
 /* global Package */
 Package.describe({
     name: 'socialize:requestable',
-    version: '1.0.0',
+    version: '1.0.1',
     summary: 'Create models that are requestable',
     git: 'https://github.com/copleykj/socialize-requestable.git',
 });
