@@ -17,13 +17,19 @@ if (RequestsCollection.configureRedisOplog) {
             const namespaces = [];
             if (doc) {
                 namespaces.push(doc.linkedObjectId, doc.requesterId);
-            } else if (selector && selector._id) {
-                const request = RequestsCollection.findOne({ _id: selector._id }, { fields: { linkedObjectId: 1, requesterId: 1 } });
-                if (request) {
-                    namespaces.push(request.linkedObjectId, request.requesterId);
+            } else if (selector) {
+                const { _id, linkedObjectId, requesterId } = selector;
+
+                if (_id) {
+                    const request = RequestsCollection.findOne({ _id: selector._id }, { fields: { linkedObjectId: 1, requesterId: 1 } });
+                    if (request) {
+                        namespaces.push(request.linkedObjectId, request.requesterId);
+                    }
+                } else {
+                    linkedObjectId && namespaces.push(linkedObjectId);
+                    requesterId && namespaces.push(requesterId);
                 }
             }
-
             Object.assign(options, {
                 namespaces,
             });
