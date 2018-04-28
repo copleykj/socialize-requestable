@@ -2,6 +2,9 @@
 
 This package allows the creation of models that can be requested. This package is used by the [socialize:friendships][friendships] package to create user to user friendship requests. It could however also be useful for other models such as event listings or groups which users can request access to.
 
+>This is a [Meteor][meteor] package with part of it's code published as a companion NPM package made to work with React Native. This allows your Meteor and React Native projects that use this package to share code between them to give you a competitive advantage when bringing your mobile and web application to market.
+
+
 <!-- TOC START min:1 max:3 link:true update:true -->
 - [Requestable](#requestable)
   - [Supporting the Project](#supporting-the-project)
@@ -126,3 +129,4 @@ This package implements [cultofcoders:redis-oplog][redis-oplog]'s namespaces to 
 [socialize]: https://atmospherejs.com/socialize
 [redis-oplog]:https://github.com/cultofcoders/redis-oplog
 [api]: https://github.com/copleykj/socialize-requestable/blob/master/API.md
+[meteor]: https://meteor.com
