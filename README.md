@@ -17,7 +17,7 @@ In the spirit of keeping this and all of the packages in the [Socialize][sociali
 
 Litecoin: LXLBD9sC5dV79eQkwj7tFusUHvJA5nhuD3 / [Patreon](https://www.patreon.com/user?u=4866588) / [Paypal](https://www.paypal.me/copleykj)
 
-## Installation
+## Meteor Installation
 
 This package relies on the npm package `simpl-schema` so you will need to make sure it is installed as well.
 
