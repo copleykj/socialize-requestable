@@ -34,7 +34,7 @@ $ meteor add socialize:requestable
 When using this package with React Native, the dependency tree ensures that `simpl-schema` is loaded so there's no need to install it as when using within Meteor.
 
 ```shell
-$ npm install --save @socialize/user-reqestable
+$ npm install --save @socialize/user-requestable
 ```
 > **Note**
 >
