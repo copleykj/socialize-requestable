@@ -9,7 +9,7 @@ Package.describe({
 Package.onUse(function _(api) {
     api.versionsFrom('1.3');
 
-    api.use('socialize:linkable-model@1.0.0');
+    api.use('socialize:linkable-model@1.0.3');
 
     api.mainModule('common/common.js');
 });
