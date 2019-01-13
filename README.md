@@ -53,7 +53,7 @@ import { Request, RequestsCollection } from 'meteor/socialize:requestable';
 
 ```javascript
 //Meteor Imports
-import Meteor { Mongo } from '@socialize/react-native-meteor';
+import Meteor, { Mongo } from '@socialize/react-native-meteor';
 import { LinkParent } from '@socialize/linkable-model';
 import { Request, RequestsCollection } from '@socialize/requestable';
 ```
