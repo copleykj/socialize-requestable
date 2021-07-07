@@ -1,6 +1,6 @@
 {
     "name": "@socialize/requestable",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "Meteor's socialize:requestable package ported for React Native",
     "main": "entry-rn.js",
     "scripts": {
@@ -24,7 +24,7 @@
     },
     "homepage": "https://github.com/copleykj/socialize-requestable#readme",
     "dependencies": {
-        "@socialize/linkable-model": "^1.0.5"
+        "@socialize/linkable-model": "^1.0.6"
     },
     "devDependencies": {
         "rimraf": "^3.0.2"
