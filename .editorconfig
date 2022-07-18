@@ -4,4 +4,4 @@ insert_final_newline = true
 
 [*.{js,ts,jsx,tsx,html,json,md}]
 indent_style = space
-indent_size = 2
+indent_size = 4

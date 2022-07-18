@@ -110,6 +110,7 @@ export default ({ Meteor, Mongo, BaseModel, LinkableModel, LinkParent, ServerTim
             acceptHooks[this.objectType].forEach((hook) => {
                 hook.call(this);
             });
+            this.update({ $set: { acceptedAt: ServerTime.date() } })
         }
 
         /**
@@ -188,6 +189,10 @@ export default ({ Meteor, Mongo, BaseModel, LinkableModel, LinkParent, ServerTim
             ignoredAt: {
                 type: Date,
                 optional: true,
+            },
+            acceptedAt: {
+                type: Date,
+                optional: true
             },
             data: {
                 type: Object,
