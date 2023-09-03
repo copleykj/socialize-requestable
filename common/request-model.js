@@ -43,19 +43,19 @@ export default ({ Meteor, Mongo, BaseModel, LinkableModel, LinkParent, ServerTim
     const acceptHooks = {};
     let requestTypes = [];
     /**
-    * The Request Class
-    * @class Request
-    * @param {Object} document An object representing a request, usually a Mongo document
-    */
+   * The Request Class
+   * @class Request
+   * @param {Object} document An object representing a request, usually a Mongo document
+   */
     class Request extends LinkableModel(BaseModel) {
-        /**
-        * onAccepted - Register a function to run when the request is accepted
-        *
-        * @static
-        * @param  {LinkParent} Model       The model for which the function should run
-        * @param  {Function} acceptedHook  The function to run when the request is accepted
-        * @throws {Meteor.error}
-        */
+    /**
+     * onAccepted - Register a function to run when the request is accepted
+     *
+     * @static
+     * @param  {LinkParent} Model       The model for which the function should run
+     * @param  {Function} acceptedHook  The function to run when the request is accepted
+     * @throws {Meteor.error}
+     */
 
         static onAccepted(Model, acceptedHook) {
             if (new Model() instanceof LinkParent) {
@@ -85,47 +85,59 @@ export default ({ Meteor, Mongo, BaseModel, LinkableModel, LinkParent, ServerTim
         }
 
         /**
-        * Get the User instance for the user who made the request
-        * @returns {User} The user who made the request
-        */
+     * Get the User instance for the user who made the request
+     * @returns {User} The user who made the request
+     */
         requester() {
             return Meteor.users.findOne({ _id: this.requesterId });
         }
 
         /**
-        * Accept the request
-        */
+     * Get the User instance for the user who is invited if exists
+     * @returns {User} The user who is invited
+     */
+        invited() {
+            if (this.invited) {
+                return Meteor.users.findOne({ _id: this.invited });
+            }
+            return null;
+        }
+
+        /**
+     * Accept the request
+     */
         accept() {
             acceptHooks[this.objectType].forEach((hook) => {
                 hook.call(this);
             });
+            this.update({ $set: { acceptedAt: ServerTime.date() } })
         }
 
         /**
-        * Deny the request
-        */
+     * Deny the request
+     */
         deny() {
             this.update({ $set: { deniedAt: ServerTime.date() } });
         }
 
         /**
-        * Ignore the request so that it can be accepted or deniedAt later
-        */
+     * Ignore the request so that it can be accepted or deniedAt later
+     */
         ignore() {
             this.update({ $set: { ignoredAt: ServerTime.date() } });
         }
 
         /**
-        * Cancel the request
-        */
+     * Cancel the request
+     */
         cancel() {
             this.remove();
         }
 
         /**
-        * Check if the request had been responded to
-        * @returns {Boolean} Whether the request has been responded to
-        */
+     * Check if the request had been responded to
+     * @returns {Boolean} Whether the request has been responded to
+     */
         wasRespondedTo() {
             return !!this.deniedAt || !!this.ignoredAt;
         }
@@ -136,42 +148,59 @@ export default ({ Meteor, Mongo, BaseModel, LinkableModel, LinkParent, ServerTim
 
     // Create the schema for a request
     RequestsCollection.attachSchema(new SimpleSchema({
-        requesterId: {
-            type: String,
-            regEx: SimpleSchema.RegEx.Id,
-            autoValue() {
-                if (this.isInsert) {
-                    return this.userId;
-                }
-                return undefined;
+            requesterId: {
+                type: String,
+                regEx: SimpleSchema.RegEx.Id,
+                autoValue() {
+                    if (this.isInsert) {
+                        return this.userId;
+                    }
+                    return undefined;
+                },
+                index: 1,
+                denyUpdate: true,
             },
-            index: 1,
-            denyUpdate: true,
-        },
-        type: {
-            type: String,
-            allowedValues: () => requestTypes,
-        },
-        createdAt: {
-            type: Date,
-            autoValue() {
-                if (this.isInsert) {
-                    return ServerTime.date();
-                }
-                return undefined;
+            invitedId: {
+                type: String,
+                regEx: SimpleSchema.RegEx.Id,
+                index: 1,
+                denyUpdate: true,
+                optional: true,
             },
-            index: -1,
-            denyUpdate: true,
-        },
-        deniedAt: {
-            type: Date,
-            optional: true,
-        },
-        ignoredAt: {
-            type: Date,
-            optional: true,
-        },
-    }));
+            type: {
+                type: String,
+                allowedValues: () => requestTypes,
+            },
+            createdAt: {
+                type: Date,
+                autoValue() {
+                    if (this.isInsert) {
+                        return ServerTime.date();
+                    }
+                    return undefined;
+                },
+                index: -1,
+                denyUpdate: true,
+            },
+            deniedAt: {
+                type: Date,
+                optional: true,
+            },
+            ignoredAt: {
+                type: Date,
+                optional: true,
+            },
+            acceptedAt: {
+                type: Date,
+                optional: true
+            },
+            data: {
+                type: Object,
+                blackbox: true,
+                optional: true,
+            },
+        })
+    );
 
     // add the LinkableSchema to the request class
     Request.appendSchema(LinkableModel.LinkableSchema);
